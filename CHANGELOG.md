@@ -34,6 +34,8 @@ for emergencies).
 
 - Removed support for Python 3.8.
 
+- Fix ability to make zone deligation
+
 ## [24.1.0] - 2024-02-09
 
 ### Changed

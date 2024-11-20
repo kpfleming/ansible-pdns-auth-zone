@@ -159,7 +159,7 @@ options:
             Only used when O(properties.kind=Native), O(properties.kind=Master),
             or O(properties.kind=Producer).
           - Only used when zone is being created (O(state=present) and zone is not present).
-          - SOA and NS records are not permitted.
+          - SOA records are not permitted.
         type: list
         elements: dict
         suboptions:
@@ -1438,7 +1438,7 @@ def main():
 
             if props["rrsets"]:
                 for rrset in props["rrsets"]:
-                    if rrset["type"] in ["SOA", "NS"]:
+                    if rrset["type"] in ["SOA"]:
                         module.fail_json(
                             msg=(
                                 f"'{rrset['type']}' type is not permitted in 'properties -> rrsets'"

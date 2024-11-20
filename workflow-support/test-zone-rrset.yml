@@ -46,7 +46,7 @@
       vars:
         d1_rrset: "{{ lookup('dig_local', 't1.d1.rrset.example.', qtype='A', flat=0, fail_on_error=false, real_empty=false) }}"
 
-    - name: check for failure when rrset includes NS
+    - name: check zone creation with zone deligation
       kpfleming.powerdns_auth.zone:
         <<: *common
         name: d2.rrset.example.
@@ -59,10 +59,10 @@
             mname: localhost.
             rname: hostmaster.localhost.
           rrsets:
-            - name: d2.rrset.example.
+            - name: sub.d2.rrset.example.
               type: NS
               records:
-                - content: ns1.invalid.
+                - content: ns2.example.
       ignore_errors: true
       register: result
 
@@ -70,7 +70,7 @@
         quiet: true
         that:
           - result['exception'] is not defined
-          - result.failed
+          - result.changed
 
     - name: check for failure when rrset includes SOA
       kpfleming.powerdns_auth.zone:
